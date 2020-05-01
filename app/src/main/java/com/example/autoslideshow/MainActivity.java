@@ -18,6 +18,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -154,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
                 ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, 100);
             }
 
-            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
             intent.setType("image/*");
             startActivityForResult(intent, 1);
@@ -189,7 +190,7 @@ public class MainActivity extends AppCompatActivity implements BaseSliderView.On
                     textSliderView
                             .description(name)
                             .image(String.valueOf(Hash_file_maps.get(name)))
-                            .setScaleType(BaseSliderView.ScaleType.Fit)
+                            .setScaleType(BaseSliderView.ScaleType.FitCenterCrop)
                             .setOnSliderClickListener(this);
                     textSliderView.bundle(new Bundle());
                     textSliderView.getBundle()
